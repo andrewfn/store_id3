@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implements hook_form_alter().
+ */
+function store_id3_form_alter(&$form, &$form_state, $form_id) {
+
+  if ($form_id === 'file_entity_edit') {
+
+    // Get the file id from the $form array and load use it to load a $file object
+    $fid = $form['fid']['#value'];
+    $file = file_load($fid);
+
+    if ($file->type === 'audio') {
+
+      // Retrieve file metadata
+      $file_metadata = getid3_analyze(drupal_realpath($file->uri));
+
+      // Assign the metadata information that we're interested in to the $form array
+      $form['field_artist'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['id3v1']['artist'];
+      $form['field_title'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['id3v1']['title'];
+      $form['field_album_name'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['id3v1']['album'];
+      $form['field_album_year'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['id3v1']['year'];
+      $form['field_time'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['playtime_string'];
+ 
+   }
+
+  }
+
+}
