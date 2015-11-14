@@ -1,4 +1,5 @@
 name = "Store id3"
 description = "store_id3 extracts metadata information from media resources and stores them into Drupal fields"
+package = "Media"
 core = 7.x
 files[] = store_id3.module

@@ -4,7 +4,7 @@
  * Implements hook_form_alter().
  */
 function store_id3_form_alter(&$form, &$form_state, $form_id) {
-
+  drupal_set_message($form_id);
   if ($form_id === 'file_entity_edit') {
 
     // Get the file id from the $form array and load use it to load a $file object
@@ -20,8 +20,8 @@ function store_id3_form_alter(&$form, &$form_state, $form_id) {
       $form['field_artist'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['id3v1']['artist'];
       $form['field_title'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['id3v1']['title'];
       $form['field_album_name'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['id3v1']['album'];
-      $form['field_album_year'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['id3v1']['year'];
-      $form['field_time'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['playtime_string'];
+      $form['field_year'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['id3v1']['year'];
+      $form['field_play_time'][LANGUAGE_NONE][0]['value']['#default_value'] = $file_metadata['playtime_string'];
  
    }
 
