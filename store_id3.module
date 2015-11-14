@@ -4,15 +4,14 @@
  * Implements hook_form_alter(). search_block_form
  */
 function store_id3_form_alter(&$form, &$form_state, $form_id) {
-  drupal_set_message('Just setting the form id');
   drupal_set_message($form_id);
-  drupal_set_message('Just set the form id');
-  if ($form_id === 'file_entity_edit') {
+  if ($form_id === 'sermon_node_form') {
 
     // Get the file id from the $form array and load use it to load a $file object
     $fid = $form['fid']['#value'];
     $file = file_load($fid);
 
+    drupal_set_message($file->type);
     if ($file->type === 'audio') {
 
       // Retrieve file metadata
